@@ -6,6 +6,7 @@ const TodoItem = ({ id, completed, title, toggleTodo, deleteTodo }) => {
 					type='checkbox'
 					checked={completed}
 					onChange={(e) => toggleTodo(id, e.target.checked)}
+					onClick={(e) => toggleTodo(id, e.target.checked)}
 				/>
 				{title}
 			</label>
