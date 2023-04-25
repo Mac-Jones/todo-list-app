@@ -123,9 +123,9 @@ body {
 	align-items: center;
 }
 
-.list li label:hover::before {
+/* .list li label:hover::before {
 	background: hsl(200, 100%, 80%);
-}
+} */
 
 .list li:has(input:checked) label::before {
 	content: '✔';
