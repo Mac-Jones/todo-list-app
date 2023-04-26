@@ -1,6 +1,6 @@
 import TodoItem from './TodoItem';
 
-const TodoList = ({ todos, toggleTodo, deleteTodo }) => {
+const TodoList = ({ todos, onChangeTodo, toggleTodo, deleteTodo }) => {
 	return (
 		<ul className='list'>
 			{todos.length === 0 && 'No Todos'}
@@ -8,7 +8,8 @@ const TodoList = ({ todos, toggleTodo, deleteTodo }) => {
 				return (
 					<TodoItem
 						key={todo.id}
-						{...todo}
+						todo={todo}
+						onChangeTodo={onChangeTodo}
 						toggleTodo={toggleTodo}
 						deleteTodo={deleteTodo}
 					/>

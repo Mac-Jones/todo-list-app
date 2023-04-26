@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import NewTodoForm from './NewTodoForm';
+import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 import './style.css';
 
@@ -34,6 +34,15 @@ const App = () => {
 		});
 	}
 
+	function handleChangeTodo(nextTodo) {
+		setTodos(
+			todos.map((todo) => {
+				if (todo.id === nextTodo.id) return nextTodo;
+				return todo;
+			})
+		);
+	}
+
 	function deleteTodo(id) {
 		setTodos((currentTodos) => {
 			return currentTodos.filter((todo) => todo.id !== id);
@@ -42,9 +51,14 @@ const App = () => {
 
 	return (
 		<>
-			<NewTodoForm addTodo={addTodo} />
+			<TodoForm addTodo={addTodo} />
 			<h1 className='header'>Todo List</h1>
-			<TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
+			<TodoList
+				todos={todos}
+				onChangeTodo={handleChangeTodo}
+				toggleTodo={toggleTodo}
+				deleteTodo={deleteTodo}
+			/>
 		</>
 	);
 };
