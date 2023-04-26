@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 const TodoItem = ({ todo, onChangeTodo, toggleTodo, deleteTodo }) => {
 	const [isEditing, setIsEditing] = useState(false);
-	console.log(isEditing);
 	const { id, completed, title } = todo;
 
 	let todoEditingContent;

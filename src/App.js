@@ -10,6 +10,9 @@ const App = () => {
 		return JSON.parse(localValue);
 	});
 
+	const total = todos.length;
+	const packed = todos.filter((todo) => todo.completed).length;
+
 	useEffect(() => {
 		localStorage.setItem('ITEMS', JSON.stringify(todos));
 	}, [todos]);
@@ -59,6 +62,16 @@ const App = () => {
 				toggleTodo={toggleTodo}
 				deleteTodo={deleteTodo}
 			/>
+			{total !== 0 ? (
+				<div className='items-count'>
+					<hr />
+					<p>
+						{packed} out of {total} completed
+					</p>
+				</div>
+			) : (
+				''
+			)}
 		</>
 	);
 };

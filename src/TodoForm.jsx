@@ -15,7 +15,7 @@ const TodoForm = ({ addTodo }) => {
 	return (
 		<form onSubmit={handleSubmit} className='new-item-form'>
 			<div className='form-row'>
-				<label htmlFor='text'>Add New Item</label>
+				<label htmlFor='text'>New Item</label>
 				<input
 					value={newItem}
 					onChange={(e) => setNewItem(e.target.value)}
