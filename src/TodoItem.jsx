@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useTodosDispatch } from './todosContext';
 
-const TodoItem = ({ todo, onChangeTodo, toggleTodo, deleteTodo }) => {
+const TodoItem = ({ todo }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const { id, completed, title } = todo;
+	const dispatch = useTodosDispatch();
 
 	let todoEditingContent;
 
@@ -12,9 +14,16 @@ const TodoItem = ({ todo, onChangeTodo, toggleTodo, deleteTodo }) => {
 				<input
 					value={title}
 					onChange={(e) => {
-						onChangeTodo({
-							...todo,
-							title: e.target.value,
+						// onChangeTodo({
+						// 	...todo,
+						// 	title: e.target.value,
+						// });
+						dispatch({
+							type: 'changed',
+							todo: {
+								...todo,
+								title: e.target.value,
+							},
 						});
 					}}
 				/>
@@ -30,7 +39,14 @@ const TodoItem = ({ todo, onChangeTodo, toggleTodo, deleteTodo }) => {
 				<input
 					type='checkbox'
 					checked={completed}
-					onChange={(e) => toggleTodo(id, e.target.checked)}
+					onChange={(e) => {
+						// toggleTodo(id, e.target.checked);
+						dispatch({
+							type: 'toggle',
+							id,
+							completed: e.target.checked,
+						});
+					}}
 				/>
 				{todoEditingContent}
 			</label>
@@ -43,7 +59,16 @@ const TodoItem = ({ todo, onChangeTodo, toggleTodo, deleteTodo }) => {
 					Edit
 				</button>
 			)}
-			<button className='btn btn-danger' onClick={() => deleteTodo(id)}>
+			<button
+				className='btn btn-danger'
+				onClick={() => {
+					//  deleteTodo(id);
+					dispatch({
+						type: 'deleted',
+						id,
+					});
+				}}
+			>
 				Delete
 			</button>
 		</li>

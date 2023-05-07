@@ -1,13 +1,22 @@
 import { useState } from 'react';
+import { useTodosDispatch } from './todosContext';
 
-const TodoForm = ({ addTodo }) => {
+const TodoForm = () => {
 	const [newItem, setNewItem] = useState('');
+
+	const dispatch = useTodosDispatch();
 
 	function handleSubmit(e) {
 		e.preventDefault();
 		if (newItem === '') return;
 
-		addTodo(newItem);
+		// addTodo(newItem);
+		dispatch({
+			type: 'added',
+			id: crypto.randomUUID(),
+			title: newItem,
+			completed: false,
+		});
 
 		setNewItem('');
 	}
