@@ -1,3 +1,2 @@
-# Hi
-
-I convert my useState into a useReducer to manage my state in one single function
+## I learned useState, useReducer, and createContext/useContext(Context API)  REACT HOOK
+I use this Hook in to my Todo List App. In the beginning, I use the useState Hook  to manage my state within my functional component. Then I transitioned into the useReducer Hook to simplified my code because the repetitive use cases of the Setter Function of my useState. And lastly the Context API, It is the best thing to do when managing global data and and passing data down through the component tree in a scalable and maintainable way
