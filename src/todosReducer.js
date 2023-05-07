@@ -1,4 +1,4 @@
-export default function todosReducer(todos = [], action) {
+export default function todosReducer(todos, action) {
 	switch (action.type) {
 		case 'added': {
 			return [

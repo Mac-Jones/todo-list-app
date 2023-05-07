@@ -22,8 +22,8 @@ const TodoForm = ({ addTodo }) => {
 					type='text'
 					id='text'
 				/>
+				<button className='btn'>Add</button>
 			</div>
-			<button className='btn'>Add</button>
 		</form>
 	);
 };
