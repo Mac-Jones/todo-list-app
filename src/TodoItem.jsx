@@ -1,54 +1,35 @@
 import { useState } from 'react';
-import { useTodosDispatch } from './todosContext';
+import { useContext } from 'react';
+import { TodosContext } from './todosContext';
 
 const TodoItem = ({ todo }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const { id, completed, title } = todo;
-	const dispatch = useTodosDispatch();
+	const { updateToggleTodo, updateInputChange, toDelete } =
+		useContext(TodosContext);
 
-	let todoEditingContent;
+	const handleToggle = (e) => {
+		updateToggleTodo({ id: todo.id, completed: e.target.checked });
+	};
 
-	if (isEditing) {
-		todoEditingContent = (
-			<>
-				<input
-					value={title}
-					onChange={(e) => {
-						// onChangeTodo({
-						// 	...todo,
-						// 	title: e.target.value,
-						// });
-						dispatch({
-							type: 'changed',
-							todo: {
-								...todo,
-								title: e.target.value,
-							},
-						});
-					}}
-				/>
-			</>
-		);
-	} else {
-		todoEditingContent = <>{title}</>;
-	}
+	const handleInputChange = (e) => {
+		updateInputChange({ ...todo, title: e.target.value });
+	};
+
+	const handleDelete = () => {
+		console.log(id);
+		toDelete(id);
+	};
 
 	return (
 		<li>
 			<label>
-				<input
-					type='checkbox'
-					checked={completed}
-					onChange={(e) => {
-						// toggleTodo(id, e.target.checked);
-						dispatch({
-							type: 'toggle',
-							id,
-							completed: e.target.checked,
-						});
-					}}
-				/>
-				{todoEditingContent}
+				<input type='checkbox' checked={completed} onChange={handleToggle} />
+				{isEditing ? (
+					<input value={title} onChange={handleInputChange} />
+				) : (
+					<>{title}</>
+				)}
 			</label>
 			{isEditing ? (
 				<button onClick={() => setIsEditing(false)} className='btn'>
@@ -59,16 +40,7 @@ const TodoItem = ({ todo }) => {
 					Edit
 				</button>
 			)}
-			<button
-				className='btn btn-danger'
-				onClick={() => {
-					//  deleteTodo(id);
-					dispatch({
-						type: 'deleted',
-						id,
-					});
-				}}
-			>
+			<button className='btn btn-danger' onClick={handleDelete}>
 				Delete
 			</button>
 		</li>

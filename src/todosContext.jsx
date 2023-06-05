@@ -1,32 +1,66 @@
-import { createContext, useContext, useReducer, useEffect } from 'react';
+import { createContext, useReducer } from 'react';
 
-import todosReducer from './todosReducer';
+import { todosReducer } from './todosReducer';
 
 export const TodosContext = createContext(null);
 export const TodosDispatchContext = createContext(null);
 
-export const useTodos = () => useContext(TodosContext);
-export const useTodosDispatch = () => useContext(TodosDispatchContext);
-
-const initialValue = () => {
-	const localValue = localStorage.getItem('ITEMS');
-	if (localValue == null) return [];
-	return JSON.parse(localValue);
+// const initialValue = () => {
+// 	const localValue = localStorage.getItem('ITEMS');
+// 	if (localValue == null) return [];
+// 	return JSON.parse(localValue);
+// };
+const initialValue = {
+	todos: [],
 };
 
 const TodosProvider = ({ children }) => {
-	const [todos, dispatch] = useReducer(todosReducer, initialValue());
+	const [{ todos }, dispatch] = useReducer(todosReducer, initialValue);
 
-	useEffect(() => {
-		localStorage.setItem('ITEMS', JSON.stringify(todos));
-	}, [todos]);
+	const updateAddTodo = (newTodo) => {
+		const newTodos = [...todos, newTodo];
+		dispatch({ type: 'added', payload: newTodos });
+	};
+
+	const updateToggleTodo = (newTodo) => {
+		const newTodos = todos.map((todo) => {
+			if (todo.id === newTodo.id) {
+				return { ...todo, completed: newTodo.completed };
+			}
+			return todo;
+		});
+
+		dispatch({ type: 'toggle', payload: newTodos });
+	};
+
+	const updateInputChange = (newTodo) => {
+		const newTodos = todos.map((todo) => {
+			if (todo.id === newTodo.id) {
+				return newTodo;
+			} else {
+				return todo;
+			}
+		});
+
+		dispatch({ type: 'toggle', payload: newTodos });
+	};
+
+	const toDelete = (newTodoID) => {
+		console.log(newTodoID);
+		const newTodos = todos.filter((todo) => todo.id !== newTodoID);
+		dispatch({ type: 'deleted', payload: newTodos });
+	};
+
+	const value = {
+		todos,
+		updateToggleTodo,
+		updateInputChange,
+		toDelete,
+		updateAddTodo,
+	};
 
 	return (
-		<TodosContext.Provider value={todos}>
-			<TodosDispatchContext.Provider value={dispatch}>
-				{children}
-			</TodosDispatchContext.Provider>
-		</TodosContext.Provider>
+		<TodosContext.Provider value={value}>{children}</TodosContext.Provider>
 	);
 };
 

@@ -1,18 +1,17 @@
 import { useState } from 'react';
-import { useTodosDispatch } from './todosContext';
+import { useContext } from 'react';
+import { TodosContext } from './todosContext';
 
 const TodoForm = () => {
 	const [newItem, setNewItem] = useState('');
 
-	const dispatch = useTodosDispatch();
+	const { updateAddTodo } = useContext(TodosContext);
 
-	function handleSubmit(e) {
+	function handleAddTodo(e) {
 		e.preventDefault();
 		if (newItem === '') return;
 
-		// addTodo(newItem);
-		dispatch({
-			type: 'added',
+		updateAddTodo({
 			id: crypto.randomUUID(),
 			title: newItem,
 			completed: false,
@@ -22,7 +21,7 @@ const TodoForm = () => {
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className='new-item-form'>
+		<form onSubmit={handleAddTodo} className='new-item-form'>
 			<div className='form-row'>
 				<label htmlFor='text'>New Item</label>
 				<input

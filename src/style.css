@@ -112,9 +112,6 @@ body {
 	outline: none;
 	width: auto;
 	height: auto;
-	/* appearance: none; */
-	/* pointer-events: none; */
-	/* position: absolute; */
 
 	outline: none;
 	border: 1px solid hsl(200, 100%, 40%);
@@ -127,31 +124,3 @@ body {
 .list li input:focus {
 	border: 1px solid hsl(200, 100%, 70%);
 }
-
-/* .list li label::before {
-	content: '';
-	display: block;
-	width: 0.9rem;
-	height: 0.9rem;
-	background: hsl(200, 100%, 90%);
-	border-radius: 0.25em;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.list li label:hover::before {
-	background: hsl(200, 100%, 80%);
-}
-
-.list li:has(input:checked) label::before {
-	content: '✔';
-	background: hsl(200, 100%, 40%);
-	color: hsl(200, 100%, 90%);
-	font-size: 0.75rem;
-	font-weight: bold;
-}
-
-.list li:has(input:checked) label:hover::before {
-	background: hsl(200, 100%, 30%);
-} */

@@ -1,9 +1,9 @@
+import { useContext } from 'react';
+import { TodosContext } from './todosContext';
 import TodoItem from './TodoItem';
-import { useTodos } from './todosContext';
 
 const TodoList = () => {
-	const todos = useTodos();
-
+	const { todos } = useContext(TodosContext);
 	const total = todos.length;
 	const packed = todos.filter((todo) => todo.completed).length;
 
