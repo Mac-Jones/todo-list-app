@@ -1,11 +1,8 @@
 import { useSelector } from 'react-redux';
 import { selectTodo } from './store/todos/todos.selector';
-// import { useContext } from 'react';
-// import { TodosContext } from './todosContext';
 import TodoItem from './TodoItem';
 
 const TodoList = () => {
-	// const { todos } = useContext(TodosContext);
 	const todos = useSelector(selectTodo);
 	const total = todos.length;
 	const packed = todos.filter((todo) => todo.completed).length;
