@@ -1,21 +1,25 @@
 import { useState } from 'react';
-import { useContext } from 'react';
-import { TodosContext } from './todosContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateAddTodo } from './store/todos/todos.action';
+import { selectTodo } from './store/todos/todos.selector';
 
 const TodoForm = () => {
+	const dispatch = useDispatch();
 	const [newItem, setNewItem] = useState('');
 
-	const { updateAddTodo } = useContext(TodosContext);
+	const todos = useSelector(selectTodo);
 
 	function handleAddTodo(e) {
 		e.preventDefault();
 		if (newItem === '') return;
 
-		updateAddTodo({
-			id: crypto.randomUUID(),
-			title: newItem,
-			completed: false,
-		});
+		dispatch(
+			updateAddTodo(todos, {
+				id: crypto.randomUUID(),
+				title: newItem,
+				completed: false,
+			})
+		);
 
 		setNewItem('');
 	}

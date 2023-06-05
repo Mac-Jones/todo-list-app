@@ -1,24 +1,31 @@
 import { useState } from 'react';
-import { useContext } from 'react';
-import { TodosContext } from './todosContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectTodo } from './store/todos/todos.selector';
+import {
+	updateInputChange,
+	updateToggleTodo,
+	toDelete,
+} from './store/todos/todos.action';
 
 const TodoItem = ({ todo }) => {
+	const dispatch = useDispatch();
 	const [isEditing, setIsEditing] = useState(false);
 	const { id, completed, title } = todo;
-	const { updateToggleTodo, updateInputChange, toDelete } =
-		useContext(TodosContext);
+
+	const todos = useSelector(selectTodo);
 
 	const handleToggle = (e) => {
-		updateToggleTodo({ id: todo.id, completed: e.target.checked });
+		dispatch(
+			updateToggleTodo(todos, { id: todo.id, completed: e.target.checked })
+		);
 	};
 
 	const handleInputChange = (e) => {
-		updateInputChange({ ...todo, title: e.target.value });
+		dispatch(updateInputChange(todos, { ...todo, title: e.target.value }));
 	};
 
 	const handleDelete = () => {
-		console.log(id);
-		toDelete(id);
+		dispatch(toDelete(todos, id));
 	};
 
 	return (

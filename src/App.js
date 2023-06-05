@@ -1,16 +1,15 @@
+import { Fragment } from 'react';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
-
-import TodosProvider from './todosContext';
 
 import './style.css';
 
 const App = () => {
 	return (
-		<TodosProvider>
+		<Fragment>
 			<TodoForm />
 			<TodoList />
-		</TodosProvider>
+		</Fragment>
 	);
 };
 
