@@ -4,7 +4,7 @@ import { createAction } from '../../utils/reducer';
 
 export const updateAddTodo = (todos, newTodo) => {
 	const newTodos = [...todos, newTodo];
-	return createAction(TODOS_ACTION_TYPES.ADD_TODO, newTodos);
+	return createAction(TODOS_ACTION_TYPES.UPDATE_TODO, newTodos);
 };
 
 export const updateToggleTodo = (todos, newTodo) => {
@@ -15,7 +15,7 @@ export const updateToggleTodo = (todos, newTodo) => {
 		return todo;
 	});
 
-	return createAction(TODOS_ACTION_TYPES.TOGGLE_TODO, newTodos);
+	return createAction(TODOS_ACTION_TYPES.UPDATE_TODO, newTodos);
 };
 
 export const updateInputChange = (todos, newTodo) => {
@@ -27,10 +27,10 @@ export const updateInputChange = (todos, newTodo) => {
 		}
 	});
 
-	return createAction(TODOS_ACTION_TYPES.CHANGE_TODO, newTodos);
+	return createAction(TODOS_ACTION_TYPES.UPDATE_TODO, newTodos);
 };
 
 export const toDelete = (todos, newTodoID) => {
 	const newTodos = todos.filter((todo) => todo.id !== newTodoID);
-	return createAction(TODOS_ACTION_TYPES.DELETE_TODO, newTodos);
+	return createAction(TODOS_ACTION_TYPES.UPDATE_TODO, newTodos);
 };

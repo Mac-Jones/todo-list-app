@@ -18,8 +18,15 @@ const middleWares = [process.env.NODE_ENV === 'development' && logger].filter(
 	Boolean
 );
 
-const composeEnhancer = compose(applyMiddleware(...middleWares));
+const composeEnhancer =
+	(process.env.NODE_ENV !== 'production' &&
+		window &&
+		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+	compose;
 
-export const store = createStore(persistedReducer, undefined, composeEnhancer);
+// the previos one is only "compose" without redux dev tools
+const composedEnhancer = composeEnhancer(applyMiddleware(...middleWares));
+
+export const store = createStore(persistedReducer, undefined, composedEnhancer);
 
 export const persistor = persistStore(store);

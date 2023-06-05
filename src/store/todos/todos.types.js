@@ -1,6 +1,3 @@
 export const TODOS_ACTION_TYPES = {
-	ADD_TODO: 'todos/ADD_TODO',
-	TOGGLE_TODO: 'todos/TOGGLE_TODO',
-	CHANGE_TODO: 'todos/CHANGE_TODO',
-	DELETE_TODO: 'todos/DELETE_TODO',
+	UPDATE_TODO: 'todos/UPDATE_TODO',
 };
