@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
 import { selectTodo } from './store/todos/todos.selector';
 import TodoItem from './TodoItem';
+import { Todo } from './store/todos/todos.types';
 
 const TodoList = () => {
-	const todos = useSelector(selectTodo);
+	const todos: Todo[] = useSelector(selectTodo);
 	const total = todos.length;
 	const packed = todos.filter((todo) => todo.completed).length;
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectTodo } from './store/todos/todos.selector';
 import {
@@ -7,20 +7,30 @@ import {
 	toDelete,
 } from './store/todos/todos.action';
 
-const TodoItem = ({ todo }) => {
+import { Todo } from './store/todos/todos.types';
+
+type TodoProps = {
+	todo: Todo;
+};
+
+const TodoItem = ({ todo }: TodoProps) => {
 	const dispatch = useDispatch();
 	const [isEditing, setIsEditing] = useState(false);
 	const { id, completed, title } = todo;
 
 	const todos = useSelector(selectTodo);
 
-	const handleToggle = (e) => {
+	const handleToggle = (e: ChangeEvent<HTMLInputElement>) => {
 		dispatch(
-			updateToggleTodo(todos, { id: todo.id, completed: e.target.checked })
+			updateToggleTodo(todos, {
+				id: todo.id,
+				completed: e.target.checked,
+				title: todo.title,
+			})
 		);
 	};
 
-	const handleInputChange = (e) => {
+	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 		dispatch(updateInputChange(todos, { ...todo, title: e.target.value }));
 	};
 
